@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>El Muelle · Portfolio 3D</title>
+  <meta name="description" content="Portfolio 3D interactivo: un muelle de pesca donde cada proyecto es una captura.">
+  <meta property="og:title" content="El Muelle · Portfolio 3D">
+  <meta property="og:description" content="Programación y pesca en un mismo lugar. Lanzá la caña y pescá mis proyectos.">
+  <meta name="theme-color" content="#1e2a33">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎣</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://cdn.jsdelivr.net/npm/three@0.169.0/build/three.module.js",
+        "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.169.0/examples/jsm/"
+      }
+    }
+  </script>
+</head>
+<body>
+  <canvas id="scene" aria-label="Escena 3D de un muelle de pesca"></canvas>
+  <div id="hotspots" class="hotspots"></div>
+
+  <header class="topbar">
+    <div class="brand">
+      <span class="eyebrow" id="brandEyebrow"></span>
+      <h1 id="brandTitle"></h1>
+    </div>
+    <nav class="actions">
+      <div class="lang" role="group" aria-label="Idioma / Language">
+        <button type="button" data-lang="es">ES</button>
+        <button type="button" data-lang="en">EN</button>
+      </div>
+      <button type="button" id="themeBtn" class="btn icon"></button>
+      <button type="button" id="homeBtn" class="btn" data-i18n="overview"></button>
+      <button type="button" id="expressBtn" class="btn yellow"></button>
+      <a id="cvBtn" class="btn" href="#" download hidden>⤓ CV</a>
+    </nav>
+  </header>
+
+  <div id="guide" class="guide" hidden>
+    <div class="speaker" id="guideSpeaker"></div>
+    <p id="guideText"></p>
+    <div class="guide-actions">
+      <button type="button" id="guideSkip" class="link"></button>
+      <button type="button" id="guideNext" class="btn small yellow"></button>
+    </div>
+  </div>
+
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <p id="hint" class="hint"></p>
+  <button type="button" id="helpBtn" class="help">?</button>
+
+  <aside id="panel" class="panel" aria-hidden="true">
+    <div class="panel-head">
+      <div>
+        <span class="eyebrow" id="panelEyebrow"></span>
+        <h2 id="panelTitle"></h2>
+      </div>
+      <button type="button" id="panelClose" class="close">✕</button>
+    </div>
+    <div class="panel-body" id="panelBody"></div>
+  </aside>
+
+  <section id="express" class="express" hidden></section>
+
+  <div id="loader" class="loader">
+    <div class="bobber-loader"><span></span></div>
+    <p id="loaderText">Preparando la carnada…</p>
+  </div>
+
+  <script type="module" src="main.js"></script>
+</body>
+</html>
