@@ -5,32 +5,23 @@
 // ─────────────────────────────────────────────────────────────
 
 export const PROFILE = {
-  name: 'Ignacio Pisera', // TODO: confirmá cómo querés que aparezca tu nombre
+  name: 'Ignacio Pisera',
   email: 'piseraignacio@gmail.com',
-  linkedin: '', // TODO: https://www.linkedin.com/in/tu-usuario
+  linkedin: 'https://www.linkedin.com/in/ignacio-pisera-16851a2b6/',
   github: 'https://github.com/ipiseradev',
   cv: '', // TODO: copiá tu CV a esta carpeta (ej. 'cv.pdf') y poné el nombre acá
 };
 
 export const ABOUT = {
-  // TODO: reescribí esto con tu historia
   paragraphs: {
     es: [
-      'Soy desarrollador y me muevo entre el ecommerce y la inteligencia artificial: armo tiendas en Shopify pensadas para convertir y prototipos de IA que resuelven problemas reales.',
-      'Programar y pescar se parecen más de lo que parece: paciencia, leer el entorno, cambiar de señuelo cuando no pica y la satisfacción de sacar algo bueno después de varios intentos.',
-      'Este muelle junta mis dos pasiones. Lanzá la caña y conocé lo que vengo construyendo.',
+      'Soy desarrollador full stack con foco en backend e IA aplicada. Mi base es Java con Spring Boot (Hibernate y Spring IoC), y también trabajo con Node.js, Express y GraphQL para construir APIs sólidas y mantenibles. En el frontend me gusta trabajar con React, Angular y TypeScript para que las APIs que construyo tengan interfaces de usuario claras y rápidas.',
     ],
     en: [
-      "I'm a developer working between ecommerce and artificial intelligence: I build Shopify stores designed to convert and AI prototypes that solve real problems.",
-      'Coding and fishing have more in common than it seems: patience, reading the environment, switching lures when nothing bites, and the joy of landing something good after a few tries.',
-      'This dock brings my two passions together. Cast the line and see what I have been building.',
+      "I'm a full stack developer focused on backend and applied AI. My foundation is Java with Spring Boot (Hibernate and Spring IoC), and I also work with Node.js, Express and GraphQL to build solid, maintainable APIs. On the frontend I enjoy working with React, Angular and TypeScript so the APIs I build come with clear, fast user interfaces.",
     ],
   },
-  facts: [
-    { label: { es: 'Enfoque', en: 'Focus' }, value: { es: 'Ecommerce · IA aplicada', en: 'Ecommerce · Applied AI' } },
-    { label: { es: 'Herramientas', en: 'Tools' }, value: { es: 'Shopify, Python, JavaScript', en: 'Shopify, Python, JavaScript' } },
-    { label: { es: 'Fuera del código', en: 'Off the keyboard' }, value: { es: 'Con la caña en el agua', en: 'Line in the water' } },
-  ],
+  facts: [], // opcional: datos rápidos debajo del texto, ej. { label: { es: 'Enfoque', en: 'Focus' }, value: { es: '...', en: '...' } }
 };
 
 // Cada proyecto es un pez. El orden es el orden en que se pescan.
@@ -110,16 +101,56 @@ export const PROJECTS = [
   },
 ];
 
-// Cada habilidad es un señuelo de la caja de pesca.
+// Cada categoría de habilidades es un señuelo de la caja de pesca.
 export const SKILLS = [
-  { name: 'Shopify & Liquid', lure: { es: 'Cucharita', en: 'Spoon' }, color: '#f2b632' },
-  { name: 'JavaScript', lure: { es: 'Spinner', en: 'Spinner' }, color: '#f7df1e' },
-  { name: 'HTML & CSS', lure: { es: 'Popper', en: 'Popper' }, color: '#ff7a3d' },
-  { name: 'Python', lure: { es: 'Rapala', en: 'Minnow' }, color: '#3f7cc4' },
-  { name: { es: 'IA generativa', en: 'Generative AI' }, lure: { es: 'Mosca', en: 'Fly' }, color: '#b05cd6' },
-  { name: 'LLMs locales (Ollama)', lure: { es: 'Jig', en: 'Jig' }, color: '#2fa37a' },
-  { name: 'Three.js', lure: { es: 'Crankbait', en: 'Crankbait' }, color: '#25a8c4' },
-  { name: { es: 'CRO para ecommerce', en: 'Ecommerce CRO' }, lure: { es: 'Paleta', en: 'Paddle tail' }, color: '#e04f5f' },
+  {
+    name: { es: 'Lenguajes', en: 'Languages' },
+    lure: { es: 'Cucharita', en: 'Spoon' },
+    color: '#f2b632',
+    items: ['Java', 'C', 'JavaScript', 'TypeScript', 'Python'],
+  },
+  {
+    name: { es: 'Backend y frameworks', en: 'Backend & frameworks' },
+    lure: { es: 'Rapala', en: 'Minnow' },
+    color: '#3f7cc4',
+    items: ['Spring Boot', 'Spring IoC', 'Hibernate', 'Node.js', 'Express', 'GraphQL'],
+  },
+  {
+    name: { es: 'Frontend y UI/UX', en: 'Frontend & UI/UX' },
+    lure: { es: 'Popper', en: 'Popper' },
+    color: '#ff7a3d',
+    items: ['HTML5', 'CSS3', 'React', 'Angular', 'Redux', 'Bootstrap'],
+  },
+  {
+    name: { es: 'Bases de datos', en: 'Databases' },
+    lure: { es: 'Jig', en: 'Jig' },
+    color: '#2fa37a',
+    items: ['PostgreSQL', 'MySQL', 'MariaDB', 'MongoDB', 'Redis', 'SQLite'],
+  },
+  {
+    name: { es: 'DevOps y cloud', en: 'DevOps & cloud' },
+    lure: { es: 'Crankbait', en: 'Crankbait' },
+    color: '#25a8c4',
+    items: ['Docker', 'Kubernetes', 'Jenkins', 'Nginx', 'AWS', 'Azure'],
+  },
+  {
+    name: { es: 'Versionado y testing', en: 'Version control & testing' },
+    lure: { es: 'Spinner', en: 'Spinner' },
+    color: '#e04f5f',
+    items: ['Git', 'GitHub', 'GitLab', 'JUnit 5', 'Selenium'],
+  },
+  {
+    name: { es: 'IDEs y herramientas', en: 'IDEs & tools' },
+    lure: { es: 'Paleta', en: 'Paddle tail' },
+    color: '#b05cd6',
+    items: ['IntelliJ / JetBrains', 'Eclipse', 'VS Code', 'Postman', 'Ubuntu'],
+  },
+  {
+    name: { es: 'Ecommerce e IA', en: 'Ecommerce & AI' },
+    lure: { es: 'Mosca', en: 'Fly' },
+    color: '#f7df1e',
+    items: ['Shopify & Liquid', 'CRO', 'Gradio', 'Replicate', 'Ollama', 'Three.js'],
+  },
 ];
 
 export const GUIDE = {
@@ -150,7 +181,7 @@ export const UI = {
     docTitle: 'El Muelle de {first} · Portfolio 3D',
     brandEyebrow: 'Portfolio de {name}',
     brandTitle: 'El Muelle de {first}',
-    tagline: 'Desarrollador · Ecommerce & IA · Pescador',
+    tagline: 'Desarrollador Full Stack · Java & Spring · Pescador',
     overview: 'Vista general',
     express: 'Modo express',
     exitExpress: 'Volver al muelle',
@@ -184,7 +215,7 @@ export const UI = {
     inWater: 'Todavía en el agua',
     progress: '{n} de {total} especies en la bitácora',
     logIntro: 'Todos los proyectos que viven en este lago. Los que ya pescaste quedan marcados.',
-    skillsIntro: 'Cada señuelo es una herramienta que uso para que el proyecto pique.',
+    skillsIntro: 'Cada señuelo es un grupo de herramientas que uso para que el proyecto pique.',
     aboutTitle: 'Sobre mí',
     skillsTitle: 'Caja de señuelos',
     logTitle: 'Bitácora de capturas',
@@ -204,7 +235,7 @@ export const UI = {
     docTitle: "{first}'s Dock · 3D Portfolio",
     brandEyebrow: "{name}'s portfolio",
     brandTitle: "{first}'s Dock",
-    tagline: 'Developer · Ecommerce & AI · Angler',
+    tagline: 'Full Stack Developer · Java & Spring · Angler',
     overview: 'Overview',
     express: 'Express mode',
     exitExpress: 'Back to the dock',
@@ -238,7 +269,7 @@ export const UI = {
     inWater: 'Still in the water',
     progress: '{n} of {total} species in the log',
     logIntro: 'Every project living in this lake. The ones you already caught are marked.',
-    skillsIntro: 'Each lure is a tool I use to make a project bite.',
+    skillsIntro: 'Each lure is a set of tools I use to make a project bite.',
     aboutTitle: 'About me',
     skillsTitle: 'Tackle box',
     logTitle: 'Catch log',

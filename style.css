@@ -464,7 +464,7 @@ a { color: inherit; }
 .progress-bar span { display: block; height: 100%; background: var(--teal); border-radius: 999px; transition: width .5s; }
 
 /* señuelos */
-.lures { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; padding: 0; margin: 14px 0 0; list-style: none; }
+.lures { display: grid; grid-template-columns: 1fr; gap: 10px; padding: 0; margin: 14px 0 0; list-style: none; }
 .lure {
   display: flex;
   align-items: center;
@@ -475,7 +475,8 @@ a { color: inherit; }
   border-radius: 14px;
 }
 .lure svg { flex: none; width: 46px; height: 23px; }
-.lure strong { display: block; font-size: 14px; line-height: 1.2; }
+.lure strong { display: block; font-size: 15px; line-height: 1.2; margin-bottom: 6px; }
+.lure .tags li { font-size: 12px; }
 .lure span { font-size: 12px; color: var(--muted); font-weight: 700; }
 
 /* ---------- modo express ---------- */

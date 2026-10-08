@@ -106,7 +106,7 @@ const sections = {
     eyebrow: t('hsAbout'),
     title: PROFILE.name,
     body: `${L(ABOUT.paragraphs).map((p, i) => `<p class="${i === 0 ? 'lead' : ''}">${esc(p)}</p>`).join('')}
-      <dl class="facts">${ABOUT.facts.map((f) => `<div><dt>${esc(L(f.label))}</dt><dd>${esc(L(f.value))}</dd></div>`).join('')}</dl>
+      ${ABOUT.facts?.length ? `<dl class="facts">${ABOUT.facts.map((f) => `<div><dt>${esc(L(f.label))}</dt><dd>${esc(L(f.value))}</dd></div>`).join('')}</dl>` : ''}
       <div class="row"><button type="button" class="btn yellow" data-action="cast">🎣 ${t('ctaCast')}</button>
       <button type="button" class="btn" data-action="open:contact">${t('hsContact')}</button></div>`,
   }),
@@ -114,7 +114,8 @@ const sections = {
     eyebrow: t('hsSkills'),
     title: t('skillsTitle'),
     body: `<p class="lead">${t('skillsIntro')}</p>
-      <ul class="lures">${SKILLS.map((s) => `<li class="lure">${lureSVG(s.color)}<div><strong>${esc(L(s.name))}</strong><span>${esc(L(s.lure))}</span></div></li>`).join('')}</ul>`,
+      <ul class="lures">${SKILLS.map((s) => `<li class="lure">${lureSVG(s.color)}<div><strong>${esc(L(s.name))} <span>· ${esc(L(s.lure))}</span></strong>
+        <ul class="tags">${(s.items || []).map((i) => `<li>${esc(i)}</li>`).join('')}</ul></div></li>`).join('')}</ul>`,
   }),
   log: () => {
     const n = PROJECTS.filter((p) => caught.has(p.id)).length;
@@ -247,9 +248,8 @@ function renderExpress() {
     <h3 class="section">${t('projectsTitle')}</h3>
     <div class="ex-grid">${PROJECTS.map((p) => projectCard(p, { showStatus: false })).join('')}</div>
     <h3 class="section">${t('skillsTitle')}</h3>
-    <div class="chips">${SKILLS.map((s) => `<span>${esc(L(s.name))}</span>`).join('')}</div>
-    <h3 class="section">${t('aboutTitle')}</h3>
-    ${paras.slice(1).map((p) => `<p class="body">${esc(p)}</p>`).join('')}
+    ${SKILLS.map((s) => `<p class="body"><strong>${esc(L(s.name))}:</strong> ${(s.items || []).map(esc).join(' · ')}</p>`).join('')}
+    ${paras.length > 1 ? `<h3 class="section">${t('aboutTitle')}</h3>${paras.slice(1).map((p) => `<p class="body">${esc(p)}</p>`).join('')}` : ''}
   </div>`;
 }
 expressEl.addEventListener('click', (e) => {
