@@ -83,6 +83,60 @@ export const PROJECTS = [
       { label: { es: 'Demo en vivo', en: 'Live demo' }, url: 'https://postpilot-frontend-six.vercel.app' },
     ],
   },
+  {
+    id: 'stockcontrol',
+    name: { es: 'StockControl', en: 'StockControl' },
+    species: { es: 'Surubí', en: 'Surubí catfish' },
+    latin: 'Pseudoplatystoma corruscans',
+    fish: { body: '#9aa39a', fin: '#4d564f', spots: '#2f3532' },
+    weight: { es: '0 fugas de datos entre comercios', en: '0 data leaks between tenants' },
+    summary: {
+      es: 'Sistema multi-tenant de control de stock con actualizaciones en tiempo real y cobro de suscripción integrado.',
+      en: 'Multi-tenant stock control system with real-time updates and built-in subscription billing.',
+    },
+    desc: {
+      es: 'API REST en ASP.NET Core (Minimal APIs) más frontend en Blazor WebAssembly. Cada comercio opera aislado del resto: productos, depósitos y movimientos de stock separados por tenant. Autenticación JWT con roles, alertas de stock mínimo, cambios propagados en vivo vía SignalR, y suscripciones con Mercado Pago validadas contra su propia API en vez de confiar en el webhook.',
+      en: 'ASP.NET Core (Minimal APIs) REST API plus a Blazor WebAssembly frontend. Every business operates fully isolated: products, warehouses and stock movements are separated per tenant. JWT auth with roles, low-stock alerts, live updates via SignalR, and Mercado Pago subscriptions validated against its own API instead of trusting the webhook payload.',
+    },
+    tags: ['ASP.NET Core', 'Blazor WebAssembly', 'SignalR', 'PostgreSQL'],
+    links: [{ label: { es: 'Código', en: 'Code' }, url: 'https://github.com/ipiseradev/StockControl' }],
+  },
+  {
+    id: 'vittra',
+    name: { es: 'Vittra', en: 'Vittra' },
+    species: { es: 'Sábalo', en: 'Sábalo fish' },
+    latin: 'Prochilodus lineatus',
+    fish: { body: '#8fd4c4', fin: '#2f8f78' },
+    weight: { es: '5 roles con permisos propios', en: '5 roles with their own permissions' },
+    summary: {
+      es: 'Plataforma SaaS de gestión para clínicas: turnos, historias clínicas, recetas y facturación en un solo lugar.',
+      en: 'SaaS management platform for clinics: appointments, medical records, prescriptions and billing in one place.',
+    },
+    desc: {
+      es: 'Sistema multi-tenant para clínicas con aislamiento completo de datos por institución. Historias clínicas digitales, turnos con calendario, recetas, facturación con múltiples medios de pago y logs de auditoría pensados para cumplir normativas tipo HIPAA. Backend en FastAPI (async) y PostgreSQL, frontend en React + TypeScript + Tailwind, con 5 roles: admin, médico, enfermería, recepción y paciente.',
+      en: 'Multi-tenant system for clinics with full data isolation per institution. Digital medical records, calendar-based scheduling, prescriptions, billing with multiple payment methods and audit logs built for HIPAA-style compliance. Async FastAPI + PostgreSQL backend, React + TypeScript + Tailwind frontend, with 5 roles: admin, doctor, nurse, receptionist and patient.',
+    },
+    tags: ['React', 'TypeScript', 'FastAPI', 'PostgreSQL'],
+    links: [{ label: { es: 'Código', en: 'Code' }, url: 'https://github.com/ipiseradev/Vittra' }],
+  },
+  {
+    id: 'clariad',
+    name: { es: 'ClariAD', en: 'ClariAD' },
+    species: { es: 'Tararira', en: 'Trahira' },
+    latin: 'Hoplias malabaricus',
+    fish: { body: '#6f6b3c', fin: '#3d3a20', spots: '#2c2a17' },
+    weight: { es: '3 plataformas de ads en un dashboard', en: '3 ad platforms in one dashboard' },
+    summary: {
+      es: 'Dashboard con IA que unifica Meta Ads, Google Ads y TikTok Ads para optimizar el ROAS.',
+      en: 'AI dashboard that unifies Meta Ads, Google Ads and TikTok Ads to optimize ROAS.',
+    },
+    desc: {
+      es: 'Plataforma de inteligencia publicitaria: sincroniza campañas de las tres plataformas en un solo panel, usa GPT-4o para generar recomendaciones de optimización y dispara alertas cuando una campaña muestra fatiga, se queda sin presupuesto o tiene margen para escalar. Hecho con Next.js 16 (App Router), TypeScript, Tailwind y Recharts para los gráficos en tiempo real.',
+      en: 'Advertising intelligence platform: syncs campaigns from all three platforms into a single dashboard, uses GPT-4o to generate optimization recommendations, and fires alerts when a campaign shows fatigue, runs out of budget, or has room to scale. Built with Next.js 16 (App Router), TypeScript, Tailwind and Recharts for real-time charts.',
+    },
+    tags: ['Next.js', 'TypeScript', 'Tailwind', 'IA generativa'],
+    links: [{ label: { es: 'Código', en: 'Code' }, url: 'https://github.com/ipiseradev/ClariAD' }],
+  },
 ];
 
 // Cada categoría de habilidades es un señuelo de la caja de pesca.
