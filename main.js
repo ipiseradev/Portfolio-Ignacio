@@ -2,9 +2,7 @@ import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { PROFILE, ABOUT, PROJECTS, SKILLS, GUIDE, UI } from './content.js';
 
-/* ════════════════════════════════════════════════════════════
-   Utilidades
-   ════════════════════════════════════════════════════════════ */
+
 const $ = (s) => document.querySelector(s);
 const store = {
   get(k) { try { return localStorage.getItem(k); } catch { return null; } },
@@ -41,13 +39,11 @@ let caught = new Set();
 try { caught = new Set(JSON.parse(store.get('caught') || '[]')); } catch { caught = new Set(); }
 const saveCaught = () => store.set('caught', JSON.stringify([...caught]));
 
-/* ════════════════════════════════════════════════════════════
-   Interfaz (HTML)
-   ════════════════════════════════════════════════════════════ */
+
 const panel = $('#panel');
 const panelBody = $('#panelBody');
 const expressEl = $('#express');
-let currentSection = null; // { id, project }
+let currentSection = null;
 let expressOpen = false;
 
 function fishSVG(f) {

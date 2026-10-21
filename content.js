@@ -1,15 +1,10 @@
-// ─────────────────────────────────────────────────────────────
-//  Todo el contenido del portfolio vive acá.
-//  Editá este archivo para cambiar textos, proyectos, links y skills.
-//  Cada texto tiene versión "es" y "en".
-// ─────────────────────────────────────────────────────────────
 
 export const PROFILE = {
   name: 'Ignacio Pisera',
   email: 'piseraignacio@gmail.com',
   linkedin: 'https://www.linkedin.com/in/ignacio-pisera-16851a2b6/',
   github: 'https://github.com/ipiseradev',
-  cv: '', // TODO: copiá tu CV a esta carpeta (ej. 'cv.pdf') y poné el nombre acá
+  cv: 'cv.pdf',
 };
 
 export const ABOUT = {
@@ -21,66 +16,12 @@ export const ABOUT = {
       "I'm a full stack developer focused on backend and applied AI. My foundation is Java with Spring Boot (Hibernate and Spring IoC), and I also work with Node.js, Express and GraphQL to build solid, maintainable APIs. On the frontend I enjoy working with React, Angular and TypeScript so the APIs I build come with clear, fast user interfaces.",
     ],
   },
-  facts: [], // opcional: datos rápidos debajo del texto, ej. { label: { es: 'Enfoque', en: 'Focus' }, value: { es: '...', en: '...' } }
+  facts: [],
 };
 
 // Cada proyecto es un pez. El orden es el orden en que se pescan.
 export const PROJECTS = [
-  {
-    id: 'kinerdos',
-    name: { es: 'Kinerdos · Página de producto', en: 'Kinerdos · Product page' },
-    species: { es: 'Dorado', en: 'Golden Dorado' },
-    latin: 'Salminus brasiliensis',
-    fish: { body: '#e9a91b', fin: '#e0561f' },
-    weight: { es: '13 secciones Liquid', en: '13 Liquid sections' },
-    summary: {
-      es: 'Página de producto de alta conversión para una tienda Shopify sobre el tema Dawn.',
-      en: 'High-converting product page for a Shopify store built on the Dawn theme.',
-    },
-    desc: {
-      es: 'Desarrollé el main-product y un set de secciones CRO a medida: barra de compra fija, beneficios, comparativa, pasos, testimonios, garantía, FAQ y CTA final, más header y footer propios. Todo mobile-first y pensado para que el visitante llegue al botón de compra sin fricción.',
-      en: 'I built the main-product template and a custom set of CRO sections: sticky buy bar, benefits, comparison, steps, testimonials, guarantee, FAQ and final CTA, plus a custom header and footer. Mobile-first and designed to get visitors to the buy button without friction.',
-    },
-    tags: ['Shopify', 'Liquid', 'CSS', 'JavaScript', 'CRO'],
-    links: [], // ej: [{ label: { es: 'Ver tienda', en: 'See store' }, url: 'https://...' }]
-  },
-  {
-    id: 'tryon',
-    name: { es: 'Virtual Try-On AI', en: 'Virtual Try-On AI' },
-    species: { es: 'Surubí', en: 'Surubí catfish' },
-    latin: 'Pseudoplatystoma corruscans',
-    fish: { body: '#9aa39a', fin: '#4d564f', spots: '#2f3532' },
-    weight: { es: '1 modelo de difusión', en: '1 diffusion model' },
-    summary: {
-      es: 'Subís tu foto y una prenda, y la IA te la prueba en segundos.',
-      en: 'Upload your photo and a garment, and AI tries it on you in seconds.',
-    },
-    desc: {
-      es: 'Demo web que viste a una persona con una prenda usando el modelo IDM-VTON vía Replicate. Interfaz en Gradio con tipo de prenda (superior, inferior, vestido) y una descripción opcional para guiar al modelo. Pensada como herramienta para tiendas de moda online.',
-      en: 'Web demo that dresses a person in a garment using the IDM-VTON model on Replicate. Gradio interface with garment type (top, bottom, dress) and an optional description to guide the model. Built as a tool for online fashion stores.',
-    },
-    tags: ['Python', 'Gradio', 'Replicate', 'IA generativa'],
-    links: [],
-  },
-  {
-    id: 'estafas',
-    name: { es: 'Detector de estafas en alquileres', en: 'Rental scam detector' },
-    species: { es: 'Tararira', en: 'Trahira' },
-    latin: 'Hoplias malabaricus',
-    fish: { body: '#6f6b3c', fin: '#3d3a20', spots: '#2c2a17' },
-    weight: { es: '3 tipos de bandera roja', en: '3 kinds of red flags' },
-    status: { es: 'MVP en desarrollo', en: 'MVP in progress' },
-    summary: {
-      es: 'Pegás el link de un aviso y te devuelve las banderas rojas con un nivel de riesgo.',
-      en: 'Paste a listing link and get its red flags with a risk level.',
-    },
-    desc: {
-      es: 'Analiza avisos de Mercado Libre y Zonaprop: compara el precio contra el promedio del barrio (dataset abierto de Properati), detecta fotos reutilizadas en otros avisos con CLIP / pHash y revisa texto e imágenes con Llama 3.2 Vision corriendo local en Ollama. Sin costo de API por uso.',
-      en: 'Analyzes Mercado Libre and Zonaprop listings: compares the price with the neighborhood average (Properati open dataset), finds photos reused across listings with CLIP / pHash, and reviews text and images with Llama 3.2 Vision running locally on Ollama. Zero per-use API cost.',
-    },
-    tags: ['Python', 'Scraping', 'Llama 3.2 Vision', 'Ollama', 'CLIP'],
-    links: [],
-  },
+
   {
     id: 'muelle',
     name: { es: 'Este muelle', en: 'This dock' },
@@ -98,6 +39,49 @@ export const PROJECTS = [
     },
     tags: ['Three.js', 'JavaScript', 'WebGL', 'HTML & CSS'],
     links: [],
+  },
+  {
+    id: 'huella',
+    name: { es: 'Huella Clínica Veterinaria', en: 'Huella Vet Clinic' },
+    species: { es: 'Dorado', en: 'Golden dorado' },
+    latin: 'Salminus brasiliensis',
+    fish: { body: '#e8b23d', fin: '#b4791f', spots: '#7a4e14' },
+    weight: { es: '3 planes de salud mensuales', en: '3 monthly health plans' },
+    summary: {
+      es: 'Landing 3D para una clínica veterinaria 24 hs, con personajes que cobran vida al ritmo del scroll.',
+      en: '3D landing page for a 24-hour vet clinic, with characters brought to life by the scroll.',
+    },
+    desc: {
+      es: 'Landing interactiva en Three.js para una clínica veterinaria integral: personajes procedurales animados con GSAP y ScrollTrigger, scroll suave con Lenis, equipo médico, planes de salud mensuales, testimonios y formulario de turnos. Pensada para convertir visitas en turnos agendados.',
+      en: 'Interactive Three.js landing page for a full-service vet clinic: procedural characters animated with GSAP and ScrollTrigger, smooth scrolling with Lenis, medical team, monthly health plans, testimonials and an appointment form. Built to turn visits into booked appointments.',
+    },
+    tags: ['Three.js', 'GSAP', 'Lenis', 'Vite'],
+    links: [
+      { label: { es: 'Código', en: 'Code' }, url: 'https://github.com/ipiseradev/Landing-Huella' },
+      { label: { es: 'Demo en vivo', en: 'Live demo' }, url: 'https://huella-topaz.vercel.app' },
+    ],
+  },
+  {
+    id: 'postpilot',
+    name: { es: 'PostPilot', en: 'PostPilot' },
+    species: { es: 'Boga', en: 'Boga fish' },
+    latin: 'Leporinus obtusidens',
+    fish: { body: '#c7d2e0', fin: '#3f5a7a', spots: '#1e293b' },
+    weight: { es: '4 métricas por post', en: '4 metrics per post' },
+    status: { es: 'Beta', en: 'Beta' },
+    summary: {
+      es: 'Pegás tu post de LinkedIn y la IA te dice si el hook, la legibilidad y la historia van a funcionar.',
+      en: 'Paste your LinkedIn post and AI tells you if the hook, readability and story will land.',
+    },
+    desc: {
+      es: 'Copiloto con IA para publicaciones de LinkedIn: analiza el texto antes de publicarlo y devuelve un score de viralidad, gancho, legibilidad y narrativa, además de tecnologías detectadas, hashtags sugeridos y consejos de mejora. Frontend en React + Tailwind consumiendo una API propia en FastAPI.',
+      en: 'AI copilot for LinkedIn posts: analyzes the text before you publish it and returns a score for virality, hook, readability and storytelling, plus detected technologies, suggested hashtags and improvement tips. React + Tailwind frontend consuming a custom FastAPI backend.',
+    },
+    tags: ['React', 'Tailwind', 'FastAPI', 'IA generativa'],
+    links: [
+      { label: { es: 'Código', en: 'Code' }, url: 'https://github.com/ipiseradev/postpilot-frontend' },
+      { label: { es: 'Demo en vivo', en: 'Live demo' }, url: 'https://postpilot-frontend-six.vercel.app' },
+    ],
   },
 ];
 
@@ -155,9 +139,9 @@ export const SKILLS = [
 
 export const GUIDE = {
   es: {
-    speaker: 'El Dorado · guía del muelle',
+    speaker: 'Ignacio Pisera · guía del muelle',
     intro: [
-      '¡Buenas! Soy el Dorado, el tigre del río y guía de este muelle.',
+      '¡Buenas! Soy Ignacio, el pescador del río y guía de este muelle.',
       'Acá {first} juntó sus dos pasiones: programar y pescar. Cada proyecto es una captura.',
       'Tocá la caña al final del muelle para lanzar. En la caja están sus señuelos (su stack), en la cabaña quién es y en el bote cómo contactarlo.',
     ],
@@ -198,7 +182,7 @@ export const UI = {
     hsRod: 'Lanzar la caña',
     hsRodBusy: 'Pescando…',
     hsSkills: 'Caja de señuelos',
-    hsLog: 'Bitácora',
+    hsLog: 'Caja de Capturas',
     hsAbout: 'Sobre mí',
     hsContact: 'Contacto',
     casting: '¡Allá va!',
