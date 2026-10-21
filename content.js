@@ -16,7 +16,12 @@ export const ABOUT = {
       "I'm a full stack developer focused on backend and applied AI. My foundation is Java with Spring Boot (Hibernate and Spring IoC), and I also work with Node.js, Express and GraphQL to build solid, maintainable APIs. On the frontend I enjoy working with React, Angular and TypeScript so the APIs I build come with clear, fast user interfaces.",
     ],
   },
-  facts: [],
+  facts: [
+    { label: { es: 'Experiencia', en: 'Experience' }, value: { es: 'Menos de 1 año', en: 'Less than 1 year' } },
+    { label: { es: 'Disponibilidad', en: 'Availability' }, value: { es: 'Full-time y freelance', en: 'Full-time & freelance' } },
+    { label: { es: 'Modalidad', en: 'Work mode' }, value: { es: 'Remoto o híbrido', en: 'Remote or hybrid' } },
+    { label: { es: 'Ubicación', en: 'Location' }, value: { es: 'Buenos Aires, Argentina', en: 'Buenos Aires, Argentina' } },
+  ],
 };
 
 // Cada proyecto es un pez. El orden es el orden en que se pescan.
