@@ -10,17 +10,47 @@ export const PROFILE = {
 export const ABOUT = {
   paragraphs: {
     es: [
-      'Soy desarrollador full stack con foco en backend e IA aplicada. Mi base es Java con Spring Boot (Hibernate y Spring IoC), y también trabajo con Node.js, Express y GraphQL para construir APIs sólidas y mantenibles. En el frontend me gusta trabajar con React, Angular y TypeScript para que las APIs que construyo tengan interfaces de usuario claras y rápidas.',
+      'Soy Software Engineer especializado en backend con Python y automatización de procesos mediante IA. Diseño y construyo productos de punta a punta —APIs escalables, sistemas SaaS multi-tenant y aplicaciones de escritorio en capas— aplicando patrones formales (Clean Architecture, Repository Pattern, Dependency Injection). También trabajo con Java/Spring Boot, Node.js y, en el frontend, con React, Angular y TypeScript para que lo que construyo tenga una interfaz clara y rápida.',
+      'Tengo experiencia integrando modelos de IA en flujos de negocio reales: desde agentes autónomos que generan código hasta dashboards de analítica predictiva para optimizar campañas publicitarias. Mi foco actual es construir software empresarial escalable y mantenible para producción.',
     ],
     en: [
-      "I'm a full stack developer focused on backend and applied AI. My foundation is Java with Spring Boot (Hibernate and Spring IoC), and I also work with Node.js, Express and GraphQL to build solid, maintainable APIs. On the frontend I enjoy working with React, Angular and TypeScript so the APIs I build come with clear, fast user interfaces.",
+      "I'm a Software Engineer specialized in backend development with Python and AI-driven process automation. I design and build products end to end — scalable APIs, multi-tenant SaaS systems and layered desktop apps — applying formal patterns (Clean Architecture, Repository Pattern, Dependency Injection). I also work with Java/Spring Boot, Node.js and, on the frontend, React, Angular and TypeScript so what I build ships with a clear, fast interface.",
+      'I have experience integrating AI models into real business workflows: from autonomous agents that generate code to predictive analytics dashboards that optimize ad campaigns. My current focus is building scalable, maintainable enterprise software for production.',
     ],
   },
   facts: [
-    { label: { es: 'Experiencia', en: 'Experience' }, value: { es: 'Menos de 1 año', en: 'Less than 1 year' } },
+    { label: { es: 'Especialización', en: 'Specialization' }, value: { es: 'Backend & IA aplicada', en: 'Backend & applied AI' } },
     { label: { es: 'Disponibilidad', en: 'Availability' }, value: { es: 'Full-time y freelance', en: 'Full-time & freelance' } },
     { label: { es: 'Modalidad', en: 'Work mode' }, value: { es: 'Remoto o híbrido', en: 'Remote or hybrid' } },
     { label: { es: 'Ubicación', en: 'Location' }, value: { es: 'Buenos Aires, Argentina', en: 'Buenos Aires, Argentina' } },
+  ],
+};
+
+// Historias junto a la fogata: trayectoria y formación, del CV real.
+export const EXPERIENCE = {
+  jobs: [
+    {
+      role: { es: 'Software Developer Intern (Backend)', en: 'Software Developer Intern (Backend)' },
+      place: { es: 'Remoto', en: 'Remote' },
+      bullets: {
+        es: [
+          'Desarrollé APIs backend con Python y FastAPI, integrando servicios externos vía webhooks para automatizar flujos de negocio.',
+          'Participé en el diseño de agentes de IA y workflows automatizados, reduciendo tareas manuales repetitivas del equipo.',
+        ],
+        en: [
+          'Built backend APIs with Python and FastAPI, integrating external services via webhooks to automate business workflows.',
+          "Took part in designing AI agents and automated workflows, cutting down the team's repetitive manual tasks.",
+        ],
+      },
+    },
+  ],
+  education: [
+    { title: { es: 'Tecnicatura en Programación', en: 'Associate Degree in Programming' }, place: 'UTN', period: { es: '2025 – Actualidad', en: '2025 – Present' } },
+    { title: { es: 'Bachiller en Economía', en: 'Economics Baccalaureate' }, place: 'Maria Auxiliadora', period: { es: '2018 – 2023', en: '2018 – 2023' } },
+  ],
+  languages: [
+    { es: 'Español — Nativo', en: 'Spanish — Native' },
+    { es: 'Inglés — Intermedio', en: 'English — Intermediate' },
   ],
 };
 
@@ -39,11 +69,12 @@ export const PROJECTS = [
       en: 'The portfolio you are exploring: a 3D lake generated 100% with code.',
     },
     desc: {
-      es: 'Escena en Three.js sin modelos externos: el terreno, el agua animada, la cabaña, el bote y cada pez se generan por código. Incluye un mini-juego de pesca, modo día/noche, versión en inglés y un modo express para leer todo rápido.',
-      en: 'A Three.js scene with no external models: terrain, animated water, cabin, boat and every fish are generated in code. Includes a fishing mini-game, day/night mode, Spanish/English and an express mode to read everything fast.',
+      es: 'Escena en Three.js sin modelos externos: el terreno, el agua animada, la cabaña, el bote y cada pez se generan por código. Incluye un mini-juego de pesca, cardumen con IA de enjambre (boids), bloom en tiempo real, modo día/noche, versión en inglés y un modo express para leer todo rápido.',
+      en: 'A Three.js scene with no external models: terrain, animated water, cabin, boat and every fish are generated in code. Includes a fishing mini-game, a boid-based swarm-AI fish school, real-time bloom, day/night mode, Spanish/English and an express mode to read everything fast.',
     },
+    highlight: { es: 'Sin librerías de UI ni assets externos: todo el lago es geometría y shaders generados por código.', en: 'No UI libraries or external assets: the whole lake is geometry and shaders generated in code.' },
     tags: ['Three.js', 'JavaScript', 'WebGL', 'HTML & CSS'],
-    links: [],
+    links: [{ label: { es: 'Código', en: 'Code' }, url: 'https://github.com/ipiseradev/Portfolio-Ignacio' }],
   },
   {
     id: 'huella',
@@ -60,6 +91,7 @@ export const PROJECTS = [
       es: 'Landing interactiva en Three.js para una clínica veterinaria integral: personajes procedurales animados con GSAP y ScrollTrigger, scroll suave con Lenis, equipo médico, planes de salud mensuales, testimonios y formulario de turnos. Pensada para convertir visitas en turnos agendados.',
       en: 'Interactive Three.js landing page for a full-service vet clinic: procedural characters animated with GSAP and ScrollTrigger, smooth scrolling with Lenis, medical team, monthly health plans, testimonials and an appointment form. Built to turn visits into booked appointments.',
     },
+    highlight: { es: 'Personajes procedurales animados con GSAP ScrollTrigger y scroll inercial con Lenis.', en: 'Procedural characters animated with GSAP ScrollTrigger and inertial scroll with Lenis.' },
     tags: ['Three.js', 'GSAP', 'Lenis', 'Vite'],
     links: [
       { label: { es: 'Código', en: 'Code' }, url: 'https://github.com/ipiseradev/Landing-Huella' },
@@ -82,6 +114,7 @@ export const PROJECTS = [
       es: 'Copiloto con IA para publicaciones de LinkedIn: analiza el texto antes de publicarlo y devuelve un score de viralidad, gancho, legibilidad y narrativa, además de tecnologías detectadas, hashtags sugeridos y consejos de mejora. Frontend en React + Tailwind consumiendo una API propia en FastAPI.',
       en: 'AI copilot for LinkedIn posts: analyzes the text before you publish it and returns a score for virality, hook, readability and storytelling, plus detected technologies, suggested hashtags and improvement tips. React + Tailwind frontend consuming a custom FastAPI backend.',
     },
+    highlight: { es: 'Backend propio en FastAPI desplegado en producción con usuarios reales.', en: 'Custom FastAPI backend deployed to production with real users.' },
     tags: ['React', 'Tailwind', 'FastAPI', 'IA generativa'],
     links: [
       { label: { es: 'Código', en: 'Code' }, url: 'https://github.com/ipiseradev/postpilot-frontend' },
@@ -103,6 +136,7 @@ export const PROJECTS = [
       es: 'API REST en ASP.NET Core (Minimal APIs) más frontend en Blazor WebAssembly. Cada comercio opera aislado del resto: productos, depósitos y movimientos de stock separados por tenant. Autenticación JWT con roles, alertas de stock mínimo, cambios propagados en vivo vía SignalR, y suscripciones con Mercado Pago validadas contra su propia API en vez de confiar en el webhook.',
       en: 'ASP.NET Core (Minimal APIs) REST API plus a Blazor WebAssembly frontend. Every business operates fully isolated: products, warehouses and stock movements are separated per tenant. JWT auth with roles, low-stock alerts, live updates via SignalR, and Mercado Pago subscriptions validated against its own API instead of trusting the webhook payload.',
     },
+    highlight: { es: 'Valida las suscripciones contra la propia API de Mercado Pago en vez de confiar en el webhook.', en: 'Validates subscriptions against Mercado Pago\'s own API instead of trusting the webhook payload.' },
     tags: ['ASP.NET Core', 'Blazor WebAssembly', 'SignalR', 'PostgreSQL'],
     links: [{ label: { es: 'Código', en: 'Code' }, url: 'https://github.com/ipiseradev/StockControl' }],
   },
@@ -121,6 +155,7 @@ export const PROJECTS = [
       es: 'Sistema multi-tenant para clínicas con aislamiento completo de datos por institución. Historias clínicas digitales, turnos con calendario, recetas, facturación con múltiples medios de pago y logs de auditoría pensados para cumplir normativas tipo HIPAA. Backend en FastAPI (async) y PostgreSQL, frontend en React + TypeScript + Tailwind, con 5 roles: admin, médico, enfermería, recepción y paciente.',
       en: 'Multi-tenant system for clinics with full data isolation per institution. Digital medical records, calendar-based scheduling, prescriptions, billing with multiple payment methods and audit logs built for HIPAA-style compliance. Async FastAPI + PostgreSQL backend, React + TypeScript + Tailwind frontend, with 5 roles: admin, doctor, nurse, receptionist and patient.',
     },
+    highlight: { es: 'Aislamiento completo de datos por institución, con logs de auditoría pensados para cumplir HIPAA.', en: 'Full data isolation per institution, with audit logs built for HIPAA-style compliance.' },
     tags: ['React', 'TypeScript', 'FastAPI', 'PostgreSQL'],
     links: [{ label: { es: 'Código', en: 'Code' }, url: 'https://github.com/ipiseradev/Vittra' }],
   },
@@ -139,8 +174,49 @@ export const PROJECTS = [
       es: 'Plataforma de inteligencia publicitaria: sincroniza campañas de las tres plataformas en un solo panel, usa GPT-4o para generar recomendaciones de optimización y dispara alertas cuando una campaña muestra fatiga, se queda sin presupuesto o tiene margen para escalar. Hecho con Next.js 16 (App Router), TypeScript, Tailwind y Recharts para los gráficos en tiempo real.',
       en: 'Advertising intelligence platform: syncs campaigns from all three platforms into a single dashboard, uses GPT-4o to generate optimization recommendations, and fires alerts when a campaign shows fatigue, runs out of budget, or has room to scale. Built with Next.js 16 (App Router), TypeScript, Tailwind and Recharts for real-time charts.',
     },
+    highlight: { es: 'Unifica 3 plataformas de ads (Meta, Google, TikTok) en un panel con recomendaciones por GPT-4o.', en: 'Unifies 3 ad platforms (Meta, Google, TikTok) in one panel with GPT-4o powered recommendations.' },
     tags: ['Next.js', 'TypeScript', 'Tailwind', 'IA generativa'],
     links: [{ label: { es: 'Código', en: 'Code' }, url: 'https://github.com/ipiseradev/ClariAD' }],
+  },
+  {
+    id: 'aduaerp',
+    name: { es: 'AduaERP', en: 'AduaERP' },
+    species: { es: 'Patí', en: 'Striped catfish' },
+    latin: 'Luciopimelodus pati',
+    fish: { body: '#aab4ba', fin: '#5f6b72', spots: '#3b4247' },
+    weight: { es: 'Decenas de entidades de dominio modeladas', en: 'Dozens of modeled domain entities' },
+    status: { es: 'En desarrollo activo', en: 'Actively in development' },
+    summary: {
+      es: 'ERP de escritorio para agencias aduanales: clientes, operaciones, facturación y documentos en un solo lugar.',
+      en: 'Desktop ERP for customs agencies: clients, operations, billing and documents in one place.',
+    },
+    desc: {
+      es: 'Plataforma de escritorio para centralizar la gestión operativa de agencias aduanales: clientes, proveedores, operaciones, facturación, pagos, documentos y reportes. Arquitectura distribuida en capas (Domain, Application, Infrastructure, WPF) con patrón MVVM, Repository Pattern e inyección de dependencias, modelando decenas de entidades del dominio aduanero. Dashboard y CRUDs completos con EF Core (migraciones y seed) y autenticación por roles.',
+      en: 'Desktop platform to centralize operations for customs agencies: clients, suppliers, operations, billing, payments, documents and reports. Layered architecture (Domain, Application, Infrastructure, WPF) with MVVM, Repository Pattern and dependency injection, modeling dozens of domain entities. Full dashboard and CRUDs with EF Core (migrations and seeding) and role-based auth.',
+    },
+    highlight: { es: 'Arquitectura Clean distribuida en 4 proyectos por capa (Domain / Application / Infrastructure / WPF).', en: 'Clean Architecture split across 4 layer projects (Domain / Application / Infrastructure / WPF).' },
+    tags: ['C#', '.NET 10', 'WPF', 'Entity Framework Core'],
+    links: [{ label: { es: 'Código', en: 'Code' }, url: 'https://github.com/ipiseradev/AduaERP' }],
+  },
+  {
+    id: 'devjarvis',
+    name: { es: 'DevJarvis', en: 'DevJarvis' },
+    species: { es: 'Palometa', en: 'Piranha' },
+    latin: 'Serrasalmus maculatus',
+    fish: { body: '#3f4650', fin: '#c0392b' },
+    weight: { es: '0 APIs externas de IA necesarias', en: '0 external AI APIs required' },
+    status: { es: 'Beta', en: 'Beta' },
+    summary: {
+      es: 'Asistente de IA conversacional que analiza proyectos enteros, genera código y edita archivos.',
+      en: 'Conversational AI assistant that analyzes whole projects, generates code and edits files.',
+    },
+    desc: {
+      es: 'Asistente conversacional con arquitectura modular basada en agentes: gestiona contexto de proyectos completos, genera código y edita archivos directamente. Integra LLMs locales vía Ollama para no depender de APIs externas de IA. Frontend de escritorio con Tauri y backend en FastAPI.',
+      en: 'Conversational assistant with a modular agent-based architecture: manages context across entire projects, generates code and edits files directly. Integrates local LLMs via Ollama, with no dependency on external AI APIs. Desktop frontend with Tauri and a FastAPI backend.',
+    },
+    highlight: { es: 'LLMs 100% locales vía Ollama: cero dependencia de APIs externas de IA.', en: '100% local LLMs via Ollama: zero dependency on external AI APIs.' },
+    tags: ['Python', 'FastAPI', 'Tauri', 'Ollama'],
+    links: [],
   },
 ];
 
@@ -202,7 +278,8 @@ export const GUIDE = {
     intro: [
       '¡Buenas! Soy Ignacio, el pescador del río y guía de este muelle.',
       'Acá {first} juntó sus dos pasiones: programar y pescar. Cada proyecto es una captura.',
-      'Tocá la caña al final del muelle para lanzar. En la caja están sus señuelos (su stack), en la cabaña quién es y en el bote cómo contactarlo.',
+      'Tocá la caña al final del muelle para lanzar. En la caja están sus señuelos (su stack), en la cabaña quién es, junto a la fogata su trayectoria y en el bote cómo contactarlo.',
+      '¿Poco tiempo? Arriba a la derecha está el "Modo express" para ver todo en una sola pantalla, sin 3D.',
     ],
     firstCatch: ['¡Linda pieza! Tranquilo, acá se pesca con devolución: el pez vuelve al agua.'],
     allCaught: ['¡Bitácora completa! Ya sacaste todos los proyectos. Si te gustó lo que viste, subite al bote y escribile a {first}.'],
@@ -212,7 +289,8 @@ export const GUIDE = {
     intro: [
       "Hey there! I'm the Dorado, tiger of the river and guide of this dock.",
       'Here {first} brought together two passions: coding and fishing. Every project is a catch.',
-      'Tap the rod at the end of the dock to cast. The tackle box holds the lures (the stack), the cabin tells you about {first} and the boat how to reach out.',
+      'Tap the rod at the end of the dock to cast. The tackle box holds the lures (the stack), the cabin tells you about {first}, the campfire holds the career story and the boat how to reach out.',
+      "Short on time? Top right there's an \"Express mode\" to see everything on one screen, no 3D needed.",
     ],
     firstCatch: ["Nice one! Don't worry, this is catch and release: the fish goes back to the water."],
     allCaught: ['Catch log complete! You landed every project. If you liked what you saw, hop on the boat and say hi to {first}.'],
@@ -224,7 +302,7 @@ export const UI = {
     docTitle: 'El Muelle de {first} · Portfolio 3D',
     brandEyebrow: 'Portfolio de {name}',
     brandTitle: 'El Muelle de {first}',
-    tagline: 'Desarrollador Full Stack · Java & Spring · Pescador',
+    tagline: 'Backend & IA aplicada · Full Stack · Pescador',
     overview: 'Vista general',
     express: 'Modo express',
     exitExpress: 'Volver al muelle',
@@ -243,6 +321,7 @@ export const UI = {
     hsSkills: 'Caja de señuelos',
     hsLog: 'Caja de Capturas',
     hsAbout: 'Sobre mí',
+    hsExperience: 'Historias junto al fuego',
     hsContact: 'Contacto',
     casting: '¡Allá va!',
     waiting: 'Esperando el pique…',
@@ -260,6 +339,13 @@ export const UI = {
     logIntro: 'Todos los proyectos que viven en este lago. Los que ya pescaste quedan marcados.',
     skillsIntro: 'Cada señuelo es un grupo de herramientas que uso para que el proyecto pique.',
     aboutTitle: 'Sobre mí',
+    experienceEyebrow: 'Historias junto al fuego',
+    experienceTitle: 'Trayectoria',
+    experienceIntro: 'Lo que vengo construyendo, aprendiendo y estudiando. Sentate un rato junto al fuego.',
+    jobsTitle: 'Experiencia',
+    educationTitle: 'Educación',
+    languagesTitle: 'Idiomas',
+    highlightLabel: 'Lo más destacado',
     skillsTitle: 'Caja de señuelos',
     logTitle: 'Bitácora de capturas',
     contactTitle: '¿Salimos a pescar?',
@@ -278,7 +364,7 @@ export const UI = {
     docTitle: "{first}'s Dock · 3D Portfolio",
     brandEyebrow: "{name}'s portfolio",
     brandTitle: "{first}'s Dock",
-    tagline: 'Full Stack Developer · Java & Spring · Angler',
+    tagline: 'Backend & Applied AI · Full Stack · Angler',
     overview: 'Overview',
     express: 'Express mode',
     exitExpress: 'Back to the dock',
@@ -297,6 +383,7 @@ export const UI = {
     hsSkills: 'Tackle box',
     hsLog: 'Catch log',
     hsAbout: 'About me',
+    hsExperience: 'Campfire stories',
     hsContact: 'Contact',
     casting: 'There it goes!',
     waiting: 'Waiting for a bite…',
@@ -314,6 +401,13 @@ export const UI = {
     logIntro: 'Every project living in this lake. The ones you already caught are marked.',
     skillsIntro: 'Each lure is a set of tools I use to make a project bite.',
     aboutTitle: 'About me',
+    experienceEyebrow: 'Campfire stories',
+    experienceTitle: 'Career path',
+    experienceIntro: "What I've been building, learning and studying. Pull up a seat by the fire.",
+    jobsTitle: 'Experience',
+    educationTitle: 'Education',
+    languagesTitle: 'Languages',
+    highlightLabel: 'Standout detail',
     skillsTitle: 'Tackle box',
     logTitle: 'Catch log',
     contactTitle: "Let's go fishing?",

@@ -1,6 +1,10 @@
 import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
-import { PROFILE, ABOUT, PROJECTS, SKILLS, GUIDE, UI } from './content.js';
+import { EffectComposer } from 'three/addons/postprocessing/EffectComposer.js';
+import { RenderPass } from 'three/addons/postprocessing/RenderPass.js';
+import { UnrealBloomPass } from 'three/addons/postprocessing/UnrealBloomPass.js';
+import { OutputPass } from 'three/addons/postprocessing/OutputPass.js';
+import { PROFILE, ABOUT, EXPERIENCE, PROJECTS, SKILLS, GUIDE, UI } from './content.js';
 
 
 const $ = (s) => document.querySelector(s);
@@ -87,11 +91,13 @@ function projectCard(p, { showStatus = true } = {}) {
   const links = p.links?.length
     ? `<div class="links">${p.links.map((l) => `<a class="btn small" href="${esc(l.url)}" target="_blank" rel="noopener">${esc(L(l.label))} ↗</a>`).join('')}</div>`
     : '';
+  const highlight = p.highlight ? `<p class="note">⭐ ${esc(L(p.highlight))}</p>` : '';
   return `<article class="catch-card">
     <div class="fish-badge">${fishSVG(p.fish)}<div class="who"><strong>${esc(L(p.species))}</strong><em>${esc(p.latin)}</em></div>${pill}</div>
     <h3>${esc(L(p.name))}</h3>
     ${p.status ? `<p><span class="pill warn">${esc(L(p.status))}</span></p>` : ''}
     <p>${esc(L(p.desc))}</p>
+    ${highlight}
     <ul class="tags">${p.tags.map((tag) => `<li>${esc(tag)}</li>`).join('')}</ul>
     ${links}
   </article>`;
@@ -106,6 +112,29 @@ const sections = {
       <div class="row"><button type="button" class="btn yellow" data-action="cast">🎣 ${t('ctaCast')}</button>
       <button type="button" class="btn" data-action="open:contact">${t('hsContact')}</button></div>`,
   }),
+  experience: () => {
+    const jobs = EXPERIENCE.jobs.map((j) => `<article class="job-card">
+      <h3>${esc(L(j.role))}</h3>
+      <p class="job-place">${esc(L(j.place))}</p>
+      <ul class="job-bullets">${L(j.bullets).map((b) => `<li>${esc(b)}</li>`).join('')}</ul>
+    </article>`).join('');
+    const edu = EXPERIENCE.education.map((e) => `<div class="edu-item">
+      <div><strong>${esc(L(e.title))}</strong><span>${esc(e.place)}</span></div>
+      <em>${esc(L(e.period))}</em>
+    </div>`).join('');
+    const langs = EXPERIENCE.languages.map((l) => `<li>${esc(L(l))}</li>`).join('');
+    return {
+      eyebrow: t('experienceEyebrow'),
+      title: t('experienceTitle'),
+      body: `<p class="lead">${t('experienceIntro')}</p>
+        <h3 class="panel-section">${t('jobsTitle')}</h3>
+        ${jobs}
+        <h3 class="panel-section">${t('educationTitle')}</h3>
+        <div class="edu-list">${edu}</div>
+        <h3 class="panel-section">${t('languagesTitle')}</h3>
+        <ul class="tags">${langs}</ul>`,
+    };
+  },
   skills: () => ({
     eyebrow: t('hsSkills'),
     title: t('skillsTitle'),
@@ -141,6 +170,7 @@ const sections = {
       <h3 style="font-family:var(--font-display);font-size:19px;margin:14px 0 6px">${esc(L(p.summary))}</h3>
       ${p.status ? `<p><span class="pill warn">${esc(L(p.status))}</span></p>` : ''}
       <p>${esc(L(p.desc))}</p>
+      ${p.highlight ? `<p class="note">⭐ ${esc(L(p.highlight))}</p>` : ''}
       <ul class="tags">${p.tags.map((tag) => `<li>${esc(tag)}</li>`).join('')}</ul>
       ${p.links?.length ? `<div class="links">${p.links.map((l) => `<a class="btn small" href="${esc(l.url)}" target="_blank" rel="noopener">${esc(L(l.label))} ↗</a>`).join('')}</div>` : ''}
       <p class="note" style="margin-top:14px">🐟 ${t('release')}</p>
@@ -331,10 +361,15 @@ const smoke = [];
 const clouds = [];
 const ripples = [];
 const drops = [];
+const embers = [];
+const flames = [];
 const fishModels = {};
 const interactives = {};
 const pickables = [];
 let jumper;
+let campfireLight;
+let school;
+let composer, bloomPass;
 let time = 0;
 let themeVal = theme;
 let fly = null;
@@ -346,6 +381,7 @@ const ROD_BACK = 0.05;
 const ROD_FWD = 1.25;
 const BOBBER_REST = new THREE.Vector3(0.9, 0, 17.4);
 const CABIN_POS = new THREE.Vector3(-12, 0, -16);
+const CAMPFIRE_POS = new THREE.Vector3(-5.6, 0, -8.8);
 const TACKLE_POS = new THREE.Vector3(-0.85, DECK_Y, 5);
 const COOLER_POS = new THREE.Vector3(0.95, DECK_Y, 2.2);
 const BOAT_POS = new THREE.Vector3(3.7, 0, 8);
@@ -531,6 +567,7 @@ function buildForest() {
     if (Math.hypot(x - CABIN_POS.x, z - CABIN_POS.z) < 8) continue;
     if (Math.abs(x) < 5 && z > -16) continue;
     if (Math.hypot(x - 3, z + 9) < 3) continue; // cartel
+    if (Math.hypot(x - CAMPFIRE_POS.x, z - CAMPFIRE_POS.z) < 3.4) continue; // fogata
     if (spots.some((s) => Math.hypot(s.x - x, s.z - z) < 2.6)) continue;
     spots.push({ x, z, h, s: rr(0.8, 1.5) });
   }
@@ -758,6 +795,66 @@ function buildCabin() {
   register('about', g, () => CABIN_POS.clone().add(V(0, 6.3, 0)), () => ({ pos: CABIN_POS.clone().add(V(12.5, 6.5, 14.5)), target: CABIN_POS.clone().add(V(0, 1.6, 0)) }), '🏠');
 }
 
+/* ---------- fogata: trayectoria y formación ---------- */
+function buildCampfire() {
+  const y = terrainH(CAMPFIRE_POS.x, CAMPFIRE_POS.z);
+  CAMPFIRE_POS.y = y;
+  const g = new THREE.Group();
+  g.position.copy(CAMPFIRE_POS);
+
+  // anillo de piedras
+  const stoneGeo = new THREE.DodecahedronGeometry(0.16, 0);
+  const stoneM = mat('#8f8a80');
+  const stones = new THREE.InstancedMesh(stoneGeo, stoneM, 11);
+  const m4 = new THREE.Matrix4(), q = new THREE.Quaternion(), s = new THREE.Vector3(), p = new THREE.Vector3();
+  for (let i = 0; i < 11; i++) {
+    const a = (i / 11) * Math.PI * 2;
+    q.setFromEuler(new THREE.Euler(rr(0, 2), rr(0, 2), rr(0, 2)));
+    m4.compose(p.set(Math.cos(a) * 0.72, 0.1, Math.sin(a) * 0.72), q, s.setScalar(rr(0.8, 1.3)));
+    stones.setMatrixAt(i, m4);
+  }
+  stones.castShadow = stones.receiveShadow = true;
+  g.add(stones);
+
+  // leños cruzados
+  const logM = mat('#4a3322');
+  const logGeo = new THREE.CylinderGeometry(0.07, 0.09, 1.15, 6);
+  for (let i = 0; i < 5; i++) {
+    const a = (i / 5) * Math.PI * 2 + 0.3;
+    const log = mesh(logGeo, logM, Math.cos(a) * 0.1, 0.16, Math.sin(a) * 0.1);
+    log.rotation.y = a;
+    log.rotation.z = Math.PI / 2 - 0.22;
+    g.add(log);
+  }
+
+  // llama: conos apilados que se animan en tick()
+  const flameColors = ['#ffe58a', '#ffb13c', '#ff6a2e'];
+  for (let i = 0; i < 3; i++) {
+    const fm = new THREE.MeshBasicMaterial({ color: flameColors[i], transparent: true, opacity: 0.85, depthWrite: false, blending: THREE.AdditiveBlending });
+    const cone = new THREE.Mesh(new THREE.ConeGeometry(0.26 - i * 0.06, 0.6 - i * 0.12, 7), fm);
+    cone.position.set(0, 0.32 + i * 0.14, 0);
+    cone.userData = { phase: i * 1.7, baseY: cone.position.y, baseScale: 1 - i * 0.12 };
+    flames.push(cone);
+    g.add(cone);
+  }
+
+  campfireLight = new THREE.PointLight('#ff8c3c', 0, 11, 1.8);
+  campfireLight.position.set(0, 0.7, 0);
+  g.add(campfireLight);
+
+  // tronco-asiento con la bitácora de carrera
+  const stump = mesh(new THREE.CylinderGeometry(0.3, 0.34, 0.4, 9), mat('#6b4a2f'), 1.25, 0.2, 0.55);
+  g.add(stump);
+  const diary = mesh(new THREE.BoxGeometry(0.4, 0.07, 0.3), mat('#2f7d4f'), 1.25, 0.44, 0.55);
+  diary.rotation.y = 0.4;
+  g.add(diary);
+  const mug = mesh(new THREE.CylinderGeometry(0.08, 0.07, 0.14, 8), mat('#d9d4c7'), 0.95, 0.47, 0.75);
+  g.add(mug);
+
+  scene.add(g);
+  register('experience', g, () => CAMPFIRE_POS.clone().add(V(0, 1.6, 0)), () => ({ pos: CAMPFIRE_POS.clone().add(V(5.2, 3.2, 4.8)), target: CAMPFIRE_POS.clone().add(V(0, 0.4, 0)) }), '🔥');
+}
+
 function buildBoat() {
   boat = new THREE.Group();
   const geo = new THREE.BoxGeometry(1.7, 0.8, 4.2, 4, 2, 8);
@@ -928,6 +1025,24 @@ function setLine(a, b, sag) {
   line.geometry.attributes.position.needsUpdate = true;
 }
 
+/* ---------- brasas de la fogata ---------- */
+const emberGeo = new THREE.IcosahedronGeometry(0.035, 0);
+function ember(x, y, z) {
+  let e = embers.find((em) => !em.active);
+  if (!e) {
+    const m = new THREE.Mesh(emberGeo, new THREE.MeshBasicMaterial({ color: '#ffb13c', transparent: true, depthWrite: false, blending: THREE.AdditiveBlending }));
+    e = { mesh: m, vel: new THREE.Vector3() };
+    embers.push(e);
+    scene.add(m);
+  }
+  e.mesh.position.set(x, y, z);
+  e.vel.set(rr(-0.25, 0.25), rr(1.1, 1.9), rr(-0.25, 0.25));
+  e.active = true;
+  e.life = 0;
+  e.dur = rr(0.9, 1.4);
+  e.mesh.visible = true;
+}
+
 /* ---------- ambiente: ondas, gotas, pez saltarín, luciérnagas ---------- */
 const rippleGeo = new THREE.RingGeometry(0.32, 0.44, 28).rotateX(-Math.PI / 2);
 function ripple(x, z, big = 1) {
@@ -985,6 +1100,68 @@ function buildAmbient() {
   scene.add(fireflies);
 }
 
+/* ---------- cardumen: IA de enjambre (boids) nadando bajo el agua ---------- */
+const SCHOOL_N = 26;
+const SCHOOL_CENTER = V(0, -0.85, 20);
+const SCHOOL_BOUNDS = V(14, 0.55, 13);
+function buildSchool() {
+  const geo = new THREE.ConeGeometry(0.1, 0.46, 4);
+  geo.rotateZ(-Math.PI / 2);
+  geo.scale(1, 0.55, 0.62);
+  const matS = new THREE.MeshStandardMaterial({ color: '#7fa6c4', flatShading: true, roughness: 0.5, metalness: 0.15 });
+  school = new THREE.InstancedMesh(geo, matS, SCHOOL_N);
+  school.instanceMatrix.setUsage(THREE.DynamicDrawUsage);
+  const boids = [];
+  for (let i = 0; i < SCHOOL_N; i++) {
+    const pos = SCHOOL_CENTER.clone().add(V(rr(-12, 12), rr(-0.5, 0.5), rr(-11, 11)));
+    const vel = V(rr(-1, 1), rr(-0.08, 0.08), rr(-1, 1)).normalize().multiplyScalar(rr(1.2, 2.2));
+    boids.push({ pos, vel });
+  }
+  school.userData.boids = boids;
+  scene.add(school);
+}
+const _m4 = new THREE.Matrix4(), _q = new THREE.Quaternion(), _s = new THREE.Vector3(1, 1, 1);
+function updateSchool(dt) {
+  if (!school) return;
+  const boids = school.userData.boids;
+  for (let i = 0; i < boids.length; i++) {
+    const b = boids[i];
+    const coh = V(0, 0, 0), sep = V(0, 0, 0), align = V(0, 0, 0);
+    let count = 0;
+    for (let j = 0; j < boids.length; j++) {
+      if (i === j) continue;
+      const o = boids[j];
+      const d = b.pos.distanceTo(o.pos);
+      if (d < 4.2) {
+        coh.add(o.pos); align.add(o.vel); count++;
+        if (d < 1.1 && d > 0.001) sep.add(b.pos.clone().sub(o.pos).divideScalar(d));
+      }
+    }
+    const acc = V(0, 0, 0);
+    if (count > 0) {
+      coh.divideScalar(count).sub(b.pos).normalize().multiplyScalar(0.55);
+      align.divideScalar(count).normalize().multiplyScalar(0.45);
+      acc.add(coh).add(align);
+    }
+    acc.add(sep.multiplyScalar(1.3));
+    for (const axis of ['x', 'y', 'z']) {
+      const rel = b.pos[axis] - SCHOOL_CENTER[axis];
+      if (Math.abs(rel) > SCHOOL_BOUNDS[axis]) acc[axis] -= Math.sign(rel) * 1.1;
+    }
+    acc.x += Math.sin(time * 0.7 + i) * 0.1;
+    acc.z += Math.cos(time * 0.6 + i * 1.7) * 0.1;
+    b.vel.addScaledVector(acc, dt);
+    const sp = b.vel.length();
+    if (sp > 2.4) b.vel.multiplyScalar(2.4 / sp);
+    else if (sp < 0.8 && sp > 1e-4) b.vel.multiplyScalar(0.8 / sp);
+    b.pos.addScaledVector(b.vel, dt);
+    _q.setFromUnitVectors(V(1, 0, 0), b.vel.clone().normalize());
+    _m4.compose(b.pos, _q, _s);
+    school.setMatrixAt(i, _m4);
+  }
+  school.instanceMatrix.needsUpdate = true;
+}
+
 /* ---------- interactivos ---------- */
 const hotspotsEl = $('#hotspots');
 function register(id, group, anchor, focus, icon) {
@@ -1002,7 +1179,7 @@ function register(id, group, anchor, focus, icon) {
   interactives[id] = { id, group, anchor, focus, el };
 }
 
-const LABELS = { rod: 'hsRod', skills: 'hsSkills', log: 'hsLog', about: 'hsAbout', contact: 'hsContact' };
+const LABELS = { rod: 'hsRod', skills: 'hsSkills', log: 'hsLog', about: 'hsAbout', experience: 'hsExperience', contact: 'hsContact' };
 function updateHotspotLabels() {
   for (const it of Object.values(interactives)) {
     let key = LABELS[it.id];
@@ -1372,6 +1549,28 @@ function tick(dt) {
     if (d.mesh.position.y < -0.2) { d.active = false; d.mesh.visible = false; }
   }
 
+  // fogata: llama procedural + brasas + luz tintineante
+  for (const f of flames) {
+    const flick = Math.sin(time * 14 + f.userData.phase) * 0.12 + Math.sin(time * 27 + f.userData.phase * 3) * 0.06;
+    f.scale.set(1 + flick * 0.6, f.userData.baseScale + flick, 1 + flick * 0.6);
+    f.rotation.y = time * 1.4 + f.userData.phase;
+    f.position.y = f.userData.baseY + Math.sin(time * 9 + f.userData.phase) * 0.02;
+  }
+  if (campfireLight) {
+    campfireLight.intensity = 3.2 + Math.sin(time * 18) * 0.5 + Math.sin(time * 37.3) * 0.35 + (rand() - 0.5) * 0.3;
+  }
+  if (rand() < dt * 14) ember(CAMPFIRE_POS.x + rr(-0.18, 0.18), CAMPFIRE_POS.y + 0.25, CAMPFIRE_POS.z + rr(-0.18, 0.18));
+  for (const e of embers) {
+    if (!e.active) continue;
+    e.life += dt;
+    const k = e.life / e.dur;
+    if (k >= 1) { e.active = false; e.mesh.visible = false; continue; }
+    e.mesh.position.addScaledVector(e.vel, dt);
+    e.mesh.material.opacity = (1 - k) * 0.9;
+  }
+
+  updateSchool(dt);
+
   // pez que salta de vez en cuando
   if (jumper.t < 0) {
     jumper.next -= dt;
@@ -1412,7 +1611,7 @@ function tick(dt) {
   }
 
   updateHotspots();
-  renderer.render(scene, camera);
+  if (composer) composer.render(); else renderer.render(scene, camera);
 }
 
 function init3D() {
@@ -1443,11 +1642,20 @@ function init3D() {
   buildMountains();
   buildDock();
   buildCabin();
+  buildCampfire();
   buildBoat();
   buildSign();
   buildFishing();
   buildAmbient();
+  buildSchool();
   updateHotspotLabels();
+
+  composer = new EffectComposer(renderer);
+  composer.addPass(new RenderPass(scene, camera));
+  bloomPass = new UnrealBloomPass(new THREE.Vector2(innerWidth, innerHeight), 0.45, 0.55, 0.86);
+  composer.addPass(bloomPass);
+  composer.addPass(new OutputPass());
+  composer.setSize(innerWidth, innerHeight);
 
   let down = null;
   canvas.addEventListener('pointerdown', (e) => { down = [e.clientX, e.clientY]; });
@@ -1469,6 +1677,7 @@ function init3D() {
     camera.aspect = innerWidth / innerHeight;
     camera.updateProjectionMatrix();
     renderer.setSize(innerWidth, innerHeight, false);
+    composer.setSize(innerWidth, innerHeight);
   });
 
   const clock = new THREE.Clock();
